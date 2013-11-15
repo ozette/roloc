@@ -72,6 +72,7 @@ int helpmenu(int code)
     printf("list\tlist all program colors.\n");
     printf("view\tview last processed color.\n");
     printf("gpu\tview renderer info.\n");
+    printf("quit, q\tquit the program.\n");
   }
   return 0;
 }
