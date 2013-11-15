@@ -68,7 +68,7 @@ int helpmenu(int code)
     printf("  %s\tshow program version.\n", version);
     printf("  %s\t\tprovide an alternative path to color.txt.\n", path);
   } else {
-    printf("help\tshow this help menu.\n");
+    printf("help\tdisplay this help menu.\n");
     printf("list\tlist all program colors.\n");
     printf("view\tview last processed color.\n");
     printf("gpu\tview renderer info.\n");
