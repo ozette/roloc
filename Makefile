@@ -13,10 +13,10 @@ VPATH= %.c src
 $(OUTPUT): $(TARGETS)
 	$(CC) $(CFLAGS) $(TARGETS) $(LIBFLAGS) -o $(OUTPUT)
 
-$(OBJDIR) obj/%.o: %.c
+$(OBJDIR)/%.o: %.c
 	mkdir -p $(OBJDIR)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	rm program
+	rm roloc
 	rm obj/*.o
