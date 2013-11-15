@@ -1,0 +1,21 @@
+           _            
+ _ __ ___ | | ___   ___ 
+| '__/ _ \| |/ _ \ / __|
+| | | (_) | | (_) | (__ 
+|_|  \___/|_|\___/ \___|
+                        
+roloc is a color cooker, color calculator and palette generator.
+
+This is free software released under the GNU/GPLv3. You are free to change and
+redistribute it under certain conditions. For more information see COPYING or
+<http://www.gnu.org/licenses/>.
+
+This distribution does not come with a configure script just yet. You might have
+to install the dependencies with your package manager or manually.
+
+Running "make" in the top-level directory should yield an executable "roloc".
+
+So far only ran on GNU/Linux. 
+
+Dependencies:
+> Freeglut
