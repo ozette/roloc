@@ -111,7 +111,6 @@ int list(const char *dir)
   /* update RLC_program_color_count */
   RLC_program_color_count = itr;
 
-  printf("\nlast processed color value is %s\n", RLC_last_processed_color);
   printf("\nNumber of colors in program: %d\n", RLC_program_color_count);
   return 0;
 }
