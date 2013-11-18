@@ -13,5 +13,3 @@ int  list();
 
 void set_last_color(char *line);
 int  find_color(char *line, const char *RLC_PATH);
-
-int  cleanup();

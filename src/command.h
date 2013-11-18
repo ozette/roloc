@@ -21,5 +21,6 @@ void process_line(char *line, RLC_CMD pool[]);
 int startmsg();
 int helpmenu(int code);
 int list();
+int cleanup();
 
 extern const char *RLC_PATH; /*<! Path to the directory containing color.txt */

@@ -190,10 +190,3 @@ int find_color(char *line, const char *dir)
   }
   return 0;
 }
-
-
-/*! Clean up routine, e.g. free eventual allocated memory in the program. */
-int cleanup()
-{
-  return 0;
-}

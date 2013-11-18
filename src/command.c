@@ -85,3 +85,10 @@ int startmsg()
   printf("License: GNU GPLv3 or later <http://gnu.org/licenses/gpl.html>\n");
   return 0;
 }
+
+
+/*! Clean up routine, e.g. free eventual allocated memory in the program. */
+int cleanup()
+{
+  return 0;
+}
