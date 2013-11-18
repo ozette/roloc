@@ -48,6 +48,7 @@ void process_line(char *line, RLC_CMD pool[])
     if(strcmp(line, pool[itr].cmd) == 0) {
       if(strcmp(line, "list") == 0) {
         pool[itr].func(RLC_PATH);
+        return;
       } else {
         pool[itr].func();
         return;
