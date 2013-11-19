@@ -39,9 +39,9 @@ void start_interpreter(RLC_CMD pool[])
       } else {
         add_history(line);
         process_line(line, pool);
+        free(line);
       }
     }
-    free(line);
   }
 }
 
