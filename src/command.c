@@ -37,7 +37,7 @@ int process_args(int argc, char *argv[])
       exit(0);
     }
     if(!(strcmp(argv[1], version))) {
-      printf("roloc %s\n", RLC_VERSION);
+      printf("roloc %s\n", RELEASE);
       exit(0);
     }
     if(!strcmp(argv[1], path)) {
@@ -81,7 +81,7 @@ int helpmenu(int code)
 /* program start message */
 int startmsg()
 {
-  printf("roloc %s\n", RLC_VERSION);
+  printf("roloc %s\n", RELEASE);
   printf("License: GNU GPLv3 or later <http://gnu.org/licenses/gpl.html>\n");
   return 0;
 }

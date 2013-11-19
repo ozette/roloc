@@ -1,11 +1,12 @@
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -DRELEASE=\"$(RELEASE)\"
 #PREFIX=src
 #TARGETS=$(addprefix $(PREFIX)/, main.c interpreter.c command.c graphics.c)
 OBJDIR=obj
 TARGETS=$(addprefix $(OBJDIR)/, main.o interpreter.o command.o graphics.o \
                                 color.o convert.o)
 LIBFLAGS=-lreadline -lGL -lglut
+RELEASE=$(shell git describe --abbrev=0)
 OUTPUT=roloc
 
 VPATH= %.c src
