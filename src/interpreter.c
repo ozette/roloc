@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -21,12 +22,20 @@ void start_interpreter(RLC_CMD pool[])
 {
   int QUIT = 0;
 
+  struct sigaction EXIT;
+  EXIT.sa_handler = cleanup;
+  sigaction(SIGINT, &EXIT, NULL);
+
   for(; QUIT == 0;) {
     char *line = readline("> ");
+    if(NULL == line) {
+      QUIT = 1;
+      cleanup();
+    }
     if(line) {
       if(strcmp(line, "quit") == 0 || strcmp(line, "q") == 0 ) {
-        cleanup();
         QUIT = 1;
+        cleanup();
       } else {
         add_history(line);
         process_line(line, pool);

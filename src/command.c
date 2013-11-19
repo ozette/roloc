@@ -90,5 +90,5 @@ int startmsg()
 /*! Clean up routine, e.g. free eventual allocated memory in the program. */
 int cleanup()
 {
-  return 0;
+  exit(0);
 }
