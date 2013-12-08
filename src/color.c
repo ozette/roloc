@@ -132,6 +132,8 @@ void set_last_color(char *line)
  *  If a valid color value is provided that can not be found in color.txt
  *  RLC_last_processed_color is still set.
  *  colors will be searched for in all uppercase.
+ *  The first matching color name's value will be printed. In case a color value
+ *  is given instead, all color names with that value may be printed.
  */
 int find_color(char *line, const char *dir)
 {
