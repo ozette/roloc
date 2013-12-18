@@ -19,7 +19,7 @@ char *RLC_last_processed_color = "000000";
  * currently namespace global, so it remains in program memory */
 char name[128];
 char value[7];
-
+char value_container[7];
 
 int populate_colorwheel(const char *dir)
 {
@@ -173,7 +173,8 @@ int find_color(char *line, const char *dir)
       } else if(strcmp(line, value) == 0) {
 
         printf("%s\n", name);
-        set_last_color(value);
+        strcpy(value_container, value);
+        set_last_color(value_container);
 
       } else {
        /*- check if line is still a valid color; hex, rgb, cmyk etc. and
