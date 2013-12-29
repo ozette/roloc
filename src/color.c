@@ -186,14 +186,6 @@ char* find_color(char *line, const char *dir, int silence)
     fclose(fp);
     fp = NULL;
 
-    /* if line is not found as a name, line is always expected to be a color
-     * value and the "last color" is set nonetheless - even if it's already set
-     * in the above "else if".
-     * Whether line is an actual valid value should not determined here, but
-     * rather in convert.c.
-     * As of this writing only hex values are supported and non sense input has
-     * undefined behavior in color.c.
-     */
     if((strlen(line)== 6)) {
       strcpy(value_container, line);
       set_last_color(value_container);
