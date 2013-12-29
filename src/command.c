@@ -16,7 +16,7 @@
 
 #include "command.h"
 
-#define RLC_VERSION "0.0.1"
+#define RLC_VERSION "0.1.0"
 #define FONT_STD    "\033[0m"
 #define FONT_RED    "\033[31m"
 

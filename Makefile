@@ -4,8 +4,8 @@ CFLAGS=-Wall -DRELEASE=\"$(RELEASE)\"
 #TARGETS=$(addprefix $(PREFIX)/, main.c interpreter.c command.c graphics.c)
 OBJDIR=obj
 TARGETS=$(addprefix $(OBJDIR)/, main.o interpreter.o command.o graphics.o \
-                                color.o convert.o)
-LIBFLAGS=-lreadline -lGL -lglut
+                                color.o convert.o parser.o)
+LIBFLAGS=-lreadline -lGL -lglut -lmatheval
 RELEASE=$(shell git describe --abbrev=0)
 OUTPUT=roloc
 

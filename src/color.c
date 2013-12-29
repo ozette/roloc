@@ -13,7 +13,7 @@
 #include "color.h"
 
 
-char *RLC_last_processed_color = "000000";
+char RLC_last_processed_color[] = "000000";
 
 /* revise: static name and value size, prevent overflows
  * currently namespace global, so it remains in program memory */
@@ -121,12 +121,13 @@ int list(const char *dir)
  */
 void set_last_color(char *line)
 {
-  RLC_last_processed_color = line;
+  RLC_last_processed_color[0] = '\0';
+  strncpy(RLC_last_processed_color, line, 7);
   return;
 }
 
 
-/*! Search for a color and print its name or value.
+/*! Search for a color and print and return its name or value.
  *  e.g. RED will print FF0000
  *       FF0000 will print RED
  *  If a valid color value is provided that can not be found in color.txt
@@ -135,7 +136,7 @@ void set_last_color(char *line)
  *  The first matching color name's value will be printed. In case a color value
  *  is given instead, all color names with that value may be printed.
  */
-int find_color(char *line, const char *dir)
+char* find_color(char *line, const char *dir, int silence)
 {
   int itr;
   for(itr = 0; itr < strlen(line); itr++) {
@@ -165,16 +166,17 @@ int find_color(char *line, const char *dir)
 
       if(strcmp(line, name) == 0) {
 
-        printf("%s\n", value);
+        silence ? : printf("%s\n", value);
         set_last_color(value);
 
         fclose(fp);
         fp = NULL;
-        return 0;
+
+        return value;
 
       } else if(strcmp(line, value) == 0) {
 
-        printf("%s\n", name);
+        silence ? : printf("%s\n", name);
         strcpy(value_container, value);
         set_last_color(value_container);
 
@@ -195,11 +197,12 @@ int find_color(char *line, const char *dir)
     if((strlen(line)== 6)) {
       strcpy(value_container, line);
       set_last_color(value_container);
+      return value_container;
     }
 
   } else {
     perror("[FAIL] Allocating path");
     return 1;
   }
-  return 0;
+  return name;
 }

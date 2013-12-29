@@ -14,6 +14,7 @@
 
 #include "command.h"
 #include "color.h"
+#include "parser.h"
 
 
 /*! Starts an interpreter for terminal interaction with the provided command
@@ -49,7 +50,9 @@ void start_interpreter(RLC_CMD pool[])
 /*! Processes the returned line from the interpreter.
  *  If "line" is found in the standard command pool, its associated function.
  *  is executed. If line is not found in the standard command pool continue to
- *  match it against the program colors. */
+ *  match it against the program colors.
+ *  If the line does not match any program colors, line is checked for
+ *  arithmetic. */
 void process_line(char *line, RLC_CMD pool[])
 {
   int itr;
@@ -64,5 +67,6 @@ void process_line(char *line, RLC_CMD pool[])
       }
     }
   }
-  find_color(line, RLC_PATH);
+  find_color(line, RLC_PATH, 0);
+  find_arithmetic(line);
 }

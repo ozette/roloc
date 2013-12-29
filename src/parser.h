@@ -5,5 +5,4 @@
 * <http://www.gnu.org/licenses/>.
 */
 
-float hex_to_rgb(char digit, char digit2);
-char* rgb_to_hex(float value);
+char* find_arithmetic(char *line);

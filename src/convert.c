@@ -13,6 +13,10 @@
 #define RGB_MAX   255.0
 
 
+const char repr[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                     'A', 'B', 'C', 'D', 'E', 'F'};
+
+
 /*! Converts a pair of hex characters to a floating-point rgb representation
  *  between 0.0 and 1.0. E.g. FF becomes 1.0 */
 float hex_to_rgb(char hexchar, char hexchar2)
@@ -39,4 +43,20 @@ float hex_to_rgb(char hexchar, char hexchar2)
   float rgb_component = ((head+tail)/RGB_MAX);
 
   return rgb_component;
+}
+
+
+/*! Converts a rgb value between 0.0 and 1.0 to its hexadecimal representation.
+ *  E.g. 1.0 becomes FF */
+char* rgb_to_hex(float value)
+{
+  int val = (int) (value*RGB_MAX);
+
+  char hex_component[3];
+
+  hex_component[0] = repr[((val-(val%HEX))/HEX)]; 
+  hex_component[1] = repr[(val%HEX)];
+  hex_component[2] = '\0';
+
+  return hex_component;
 }
