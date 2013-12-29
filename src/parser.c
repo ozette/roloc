@@ -69,7 +69,7 @@ char* find_arithmetic(char *line)
     strcat(result, rgb_to_hex(green));
     strcat(result, rgb_to_hex(blue));
 
-    printf("result: %s\n", result);
+    printf("%s\n", result);
 
     set_last_color(result);
 
