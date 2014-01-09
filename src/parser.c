@@ -7,7 +7,6 @@
 /* This file contains line parse functionality. */
 
 #include <stdio.h>
-#include <matheval.h>
 #include <string.h>
 
 #include "parser.h"
@@ -23,38 +22,41 @@
 */
 char* find_arithmetic(char *line)
 {
-  char *nosupport = strpbrk(line, "`~!@#$%^&*()-_=[{]}\\|';:'\",<.>/?");
+
+  char linecopy[strlen(line)+1];
+  strcpy(linecopy, line);
+
+  char *nosupport = strpbrk(linecopy, "`~!@#$%^&*()-_=[{]}\\|';:'\",<.>/?");
 
   if(nosupport) {
 
     printf("Currently only additive blending with the + operand is supported: "
-           "%s\n", line); 
+           "%s\n", linecopy); 
     return NULL;
 
-  } else if(strpbrk(line, "+")) {
+  } else if(strpbrk(linecopy, "+")) {
 
     /* additive blend functionality */
 
-    void *expression;
-    expression = evaluator_create(line);
-
-    char **names;
-    int  count;
-    int  itr;
-
-    evaluator_get_variables(expression, &names, &count);
+    int  count = 0;
 
     float red   = 0.0;
     float green = 0.0;
     float blue  = 0.0;
 
 
-    for(itr = 0; itr < count; itr++) {
-      char* color = find_color(names[itr], RLC_PATH, 1);
+    char *token = strtok(linecopy, "+");
+
+    while(token) {
+
+      char *color = find_color(token, RLC_PATH, 1);
  
       red   = red + hex_to_rgb(color[0], color[1]);
       green = green + hex_to_rgb(color[2], color[3]);
       blue  = blue + hex_to_rgb(color[4], color[5]);
+
+      count = count+1;
+      token = strtok(NULL, "+");
     }
  
     red = red/count;
@@ -72,8 +74,6 @@ char* find_arithmetic(char *line)
     printf("%s\n", result);
 
     set_last_color(result);
-
-    evaluator_destroy(expression);
 
     return result;
   }

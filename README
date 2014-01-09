@@ -20,4 +20,3 @@ So far only ran on GNU/Linux.
 Dependencies:
 > GLX
 > Freeglut
-> libmatheval
