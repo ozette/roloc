@@ -156,7 +156,7 @@ char* find_color(char *line, const char *dir, int silence)
     if(fp == NULL) {
       perror("Could not open color.txt");
       printf("Does %s exist?\n", path);
-      return 1;
+      return NULL;
     }
 
     free(path);
@@ -194,7 +194,7 @@ char* find_color(char *line, const char *dir, int silence)
 
   } else {
     perror("[FAIL] Allocating path");
-    return 1;
+    return NULL;
   }
-  return name;
+  return NULL;
 }

@@ -50,13 +50,18 @@ char* find_arithmetic(char *line)
     while(token) {
 
       char *color = find_color(token, RLC_PATH, 1);
- 
-      red   = red + hex_to_rgb(color[0], color[1]);
-      green = green + hex_to_rgb(color[2], color[3]);
-      blue  = blue + hex_to_rgb(color[4], color[5]);
 
-      count = count+1;
-      token = strtok(NULL, "+");
+      if(color == NULL) {
+        token = strtok(NULL, "+");
+      } else {
+ 
+        red   = red + hex_to_rgb(color[0], color[1]);
+        green = green + hex_to_rgb(color[2], color[3]);
+        blue  = blue + hex_to_rgb(color[4], color[5]);
+
+        count = count+1;
+        token = strtok(NULL, "+");
+      }
     }
  
     red = red/count;
