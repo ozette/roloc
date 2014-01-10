@@ -4,6 +4,7 @@
 * See COPYING at the top-level directory of this distribution or:
 * <http://www.gnu.org/licenses/>.
 */
+/* This file contains functions interacting with color.txt */
 
 #include <stdio.h>
 #include <stdlib.h>
