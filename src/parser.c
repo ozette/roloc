@@ -47,14 +47,14 @@ char* find_arithmetic(char *line)
     float blue  = 0.0;
 
 
-    char *token = strtok(linecopy, "+");
+    char *token = strtok(linecopy, "+ ");
 
     while(token) {
 
       char *color = find_color(token, RLC_PATH, 1);
 
       if(color == NULL) {
-        token = strtok(NULL, "+");
+        token = strtok(NULL, "+ ");
       } else {
  
         red   = red + hex_to_rgb(color[0], color[1]);
@@ -62,7 +62,7 @@ char* find_arithmetic(char *line)
         blue  = blue + hex_to_rgb(color[4], color[5]);
 
         count = count+1;
-        token = strtok(NULL, "+");
+        token = strtok(NULL, "+ ");
       }
     }
  
