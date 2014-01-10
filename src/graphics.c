@@ -6,14 +6,24 @@
 */
 
 #include <stdio.h>
+#include <pthread.h>
 
 #include "graphics.h"
 #include "color.h"
 #include "convert.h"
 
 
-/*! Display the last processed or queried color in a simple window. */
+
+/*! Display view */
 void view()
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, open_interface, NULL);
+}
+
+
+/*! Display the last processed or queried color in the view. */
+void open_interface()
 {
   glutCreateWindow("roloc view");
   glutDisplayFunc(&display);
@@ -24,6 +34,9 @@ void view()
   char **RLC_DUMMY_PTR = NULL;
   glutInit(&RLC_DUMMY_INT, RLC_DUMMY_PTR);
   glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+
+  /* close self */
+  pthread_exit(0);
 }
 
 
@@ -50,6 +63,7 @@ void display()
   glEnd();
 
   glFlush();
+  glutPostRedisplay();
 }
 
 

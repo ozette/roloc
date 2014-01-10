@@ -8,6 +8,7 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 
+void open_interface();
 void view();
 void display();
 void gpuinfo();
