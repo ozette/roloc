@@ -7,12 +7,14 @@
 /* This file contains line parse functionality. */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "parser.h"
 #include "command.h"
 #include "color.h"
 #include "convert.h"
+#include "calculate.h"
 
 
 /*! Find arithmetic in a provided line and call the appropriate blend function.
@@ -81,6 +83,62 @@ char* find_arithmetic(char *line)
     set_last_color(result);
 
     return result;
+  }
+
+  return NULL;
+}
+
+
+/*! Determine if line is a program request and call the appropriate
+ *  request handle function.
+ *  Possible request lines are "red to blue 5" or "repr rgb".
+ */
+void* find_request(char *line)
+{
+
+  char linecopy[strlen(line)+1];
+  strcpy(linecopy, line);
+
+  /* color to color gradient functionality */
+
+  char *color   = NULL;
+  char *color_1 = NULL;
+  char *color_2 = NULL;
+
+  char *token = strtok(linecopy, " ");
+
+  if(token && (color = find_color(token, RLC_PATH, 1))) {
+
+    color_1 = malloc(strlen(color)+1);
+    strcpy(color_1, color);
+ 
+    token = strtok(NULL, " ");
+
+    if(token && strcmp(token, "to")) {
+
+      token = strtok(NULL, " ");
+
+      if(token && (color = find_color(token, RLC_PATH, 1))) {
+
+        color_2 = malloc(strlen(color)+1);
+        strcpy(color_2, color);
+
+        token = strtok(NULL, " ");
+
+        if(token && atoi(token)) {
+
+          GradientColor *ptr;
+          ptr = gradient(color_1, color_2, atoi(token));
+
+          free(color_1);
+          free(color_2);
+          color_1 = NULL;
+          color_2 = NULL;
+
+          return ptr;
+        }
+      }
+    }
   }
 
   return NULL;

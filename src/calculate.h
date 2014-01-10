@@ -5,5 +5,10 @@
 * <http://www.gnu.org/licenses/>.
 */
 
-char* find_arithmetic(char *line);
-void* find_request(char *line);
+typedef struct GradientColor {
+  float red;
+  float green;
+  float blue;
+} GradientColor;
+
+GradientColor* gradient(char *color1, char *color2, int amount);

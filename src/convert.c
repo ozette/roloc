@@ -4,7 +4,7 @@
 * See COPYING at the top-level directory of this distribution or:
 * <http://www.gnu.org/licenses/>.
 */
-/* This file contains all convert and calculate functionality of the program. */
+/* This file contains all convert functionality of the program. */
 
 #include <math.h>
 #include "convert.h"

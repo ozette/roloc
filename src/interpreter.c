@@ -69,4 +69,5 @@ void process_line(char *line, RLC_CMD pool[])
   }
   find_color(line, RLC_PATH, 0);
   find_arithmetic(line);
+  find_request(line);
 }
