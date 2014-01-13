@@ -3,8 +3,27 @@
 | '__/ _ \| |/ _ \ / __|
 | | | (_) | | (_) | (__ 
 |_|  \___/|_|\___/ \___|
-                        
-roloc is a color cooker, color calculator and palette generator.
+
+roloc is a color calculator and gradient and palette generator, or "color cooker"
+for short. roloc can handle text streams and features a readline interface.
+
+Examples of readline usage:
+
+  > red
+  FF0000
+
+  > ff00ff
+  MAGENTA
+
+  > red+green+aliceblue
+  A4A755
+
+  > ff0000+green+aliceblue
+  A4A755
+
+  > red to blue 4
+  FF0000 AA0055 7F007F 5500AA 2A00D4 0000FF  
+
 
 This is free software released under the GNU/GPLv3. You are free to change and
 redistribute it under certain conditions. For more information see COPYING or
