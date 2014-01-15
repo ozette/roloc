@@ -10,4 +10,3 @@
 
 void view();
 void display();
-void gpuinfo();

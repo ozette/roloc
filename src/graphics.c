@@ -51,12 +51,3 @@ void display()
 
   glFlush();
 }
-
-
-/*! Display gpu and driver information.
- *  Creates a new GLX rendering context and queries the renderer for
- *  its VENDOR, RENDERER and VERSION strings, similar to glxinfo. */
-void gpuinfo()
-{
- printf("OpenGL renderer: %s - to be implemented.\n", glGetString(GL_RENDERER));
-}

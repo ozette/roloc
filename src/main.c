@@ -45,8 +45,7 @@ int main(int argc, char *argv[])
   RLC_CMD pool[] = {
     {"help", "show this help menu.", helpmenu},
     {"list", "list all program colors.", list},
-    {"view", "view last processed color.", view},
-    {"gpu", "view renderer info", gpuinfo}
+    {"view", "view last processed color.", view}
   };
 
   /* start interpreter with commands */
