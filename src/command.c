@@ -64,14 +64,15 @@ int process_args(int argc, char *argv[])
 int helpmenu(int code)
 {
   if(code == 0) {
-    printf("  %s\tdisplay this help menu.\n", help);
-    printf("  %s\tshow program version.\n", version);
-    printf("  %s\t\tprovide an alternative path to color.txt.\n", path);
+    printf("  %s\tdisplay this help menu.\n"
+           "  %s\tshow program version.\n"
+           "  %s\t\tprovide an alternative path to color.txt.\n", help, version,
+                                                                  path);
   } else {
-    printf("help\tdisplay this help menu.\n");
-    printf("list\tlist all program colors.\n");
-    printf("view\tview last processed color.\n");
-    printf("quit, q\tquit the program.\n");
+    printf("help\tdisplay this help menu.\n"
+           "list\tlist all program colors.\n"
+           "view\tview last processed color.\n"
+           "quit, q\tquit the program.\n");
   }
   return 0;
 }
