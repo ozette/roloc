@@ -69,10 +69,13 @@ int helpmenu(int code)
            "  %s\t\tprovide an alternative path to color.txt.\n", help, version,
                                                                   path);
   } else {
-    printf("help\tdisplay this help menu.\n"
-           "list\tlist all program colors.\n"
-           "view\tview last processed color.\n"
-           "quit, q\tquit the program.\n");
+    printf("help\t\tdisplay this help menu.\n"
+           "list\t\tlist all program colors.\n"
+           "view\t\tview last processed color.\n"
+           "a+b\t\tblend color a with b.\n"
+           "a to b <n>\tdisplay gradient values with n color values in between"
+           " color a and b.\n"
+           "quit, q\t\tquit the program.\n");
   }
   return 0;
 }
