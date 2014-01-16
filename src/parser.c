@@ -114,7 +114,7 @@ void* find_request(char *line)
  
     token = strtok(NULL, " ");
 
-    if(token && strcmp(token, "to")) {
+    if(token && (strcmp(token, "TO") == 0)) {
 
       token = strtok(NULL, " ");
 
@@ -127,15 +127,19 @@ void* find_request(char *line)
 
         if(token && atoi(token)) {
 
-          GradientColor *ptr;
-          ptr = gradient(color_1, color_2, atoi(token));
+          GradientColor *store; 
+
+          gradient(store, color_1, color_2, atoi(token));
 
           free(color_1);
           free(color_2);
           color_1 = NULL;
           color_2 = NULL;
 
-          return ptr;
+          token = strtok(NULL, " ");
+          if(token && (strcmp(token, "IMG") == 0)) {
+
+          }
         }
       }
     }
