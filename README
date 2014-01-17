@@ -38,5 +38,6 @@ Running "make" in the top-level directory should yield an executable "roloc".
 So far only ran on GNU/Linux. 
 
 Dependencies:
+> Cairo
 > GLX
 > Freeglut

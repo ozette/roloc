@@ -5,6 +5,7 @@
 * <http://www.gnu.org/licenses/>.
 */
 
+#include <cairo/cairo.h>
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 

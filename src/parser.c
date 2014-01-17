@@ -15,6 +15,7 @@
 #include "color.h"
 #include "convert.h"
 #include "calculate.h"
+#include "graphics.h"
 
 
 /*! Find arithmetic in a provided line and call the appropriate blend function.
@@ -127,18 +128,57 @@ void* find_request(char *line)
 
         if(token && atoi(token)) {
 
-          GradientColor *store; 
-
-          gradient(store, color_1, color_2, atoi(token));
+          GradientColor *store;
+          store = gradient(color_1, color_2, atoi(token));
 
           free(color_1);
           free(color_2);
           color_1 = NULL;
           color_2 = NULL;
 
+          int amount = atoi(token);
+
           token = strtok(NULL, " ");
+
           if(token && (strcmp(token, "IMG") == 0)) {
 
+            token = strtok(NULL, " ");
+            int width = (token && atoi(token)) ? width = atoi(token) : 200;
+
+            token = strtok(NULL, " ");
+            int height = (token && atoi(token)) ? height = atoi(token) : 200;
+
+
+            cairo_surface_t *surface = cairo_image_surface_create(
+              CAIRO_FORMAT_ARGB32, width, height
+            );
+
+            cairo_t *cr = cairo_create(surface);
+            cairo_scale(cr, width, height);
+
+            double coverage = (1.0/(amount+2));
+            printf("coverage is %f\n", coverage);
+            int itr;
+            for(itr = 0; itr < amount+2; itr++) {
+
+              cairo_set_source_rgb(
+                cr,
+                store[itr].red,
+                store[itr].green,
+                store[itr].blue
+              );
+
+              cairo_rectangle(cr, 0.0+(coverage*itr), 0.0, coverage, 1.0);
+              cairo_fill(cr);
+            }
+
+            cairo_destroy(cr);
+
+            token = strtok(NULL, " ");
+            char *filename = (token) ? token : "gradient.png";
+
+            cairo_surface_write_to_png(surface, filename);
+            cairo_surface_destroy(surface);
           }
         }
       }

@@ -8,6 +8,7 @@
  * with convert.c */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "calculate.h"
 #include "convert.h"
@@ -20,67 +21,62 @@ GradientColor* gradient(char *color1, char *color2, int amount)
 {
   int listsize = amount+2;
 
-  GradientColor colors[listsize];
+  GradientColor *store = malloc(sizeof(GradientColor)*listsize);
 
+  store[0] = (GradientColor) {
+    hex_to_rgb(color1[0], color1[1]),
+    hex_to_rgb(color1[2], color1[3]),
+    hex_to_rgb(color1[4], color1[5])
+  };
 
-  GradientColor first;
-
-  first.red   = hex_to_rgb(color1[0], color1[1]);
-  first.green = hex_to_rgb(color1[2], color1[3]);
-  first.blue  = hex_to_rgb(color1[4], color1[5]);
-
-  GradientColor last;
-
-  last.red   = hex_to_rgb(color2[0], color2[1]);
-  last.green = hex_to_rgb(color2[2], color2[3]);
-  last.blue  = hex_to_rgb(color2[4], color2[5]);
-
-  colors[0]          = first;
-  colors[listsize-1] = last;
-  
+  store[listsize-1] = (GradientColor) {
+    hex_to_rgb(color2[0], color2[1]),
+    hex_to_rgb(color2[2], color2[3]),
+    hex_to_rgb(color2[4], color2[5])
+  };
+ 
   double full = 100.0;
-  double divide = ((full/(amount+2)) / 100); /*!< percentage per color */
+  double divide = ((full/listsize) / 100); /*!< percentage per color */
 
 
   char firstvalue[7];
   firstvalue[0] = '\0';
-  strcat(firstvalue, rgb_to_hex(first.red));
-  strcat(firstvalue, rgb_to_hex(first.green));
-  strcat(firstvalue, rgb_to_hex(first.blue));
+  strcat(firstvalue, rgb_to_hex(store[0].red));
+  strcat(firstvalue, rgb_to_hex(store[0].green));
+  strcat(firstvalue, rgb_to_hex(store[0].blue));
 
   printf("%s ", firstvalue);
 
+  int pos = 1;
   int itr;
   for(itr = amount; itr > 0; itr--) {
 
-    GradientColor item;
+    store[pos].red = (store[0].red * (divide*(itr)) )
+                   + (store[listsize-1].red *(1 - (divide*(itr))));
 
-    item.red   = (first.red * (divide*(itr)) )
-               + (last.red *(1 - (divide*(itr))));
+    store[pos].green = (store[0].green * (divide*(itr)) )
+                     + (store[listsize-1].green *(1 - (divide*(itr))));
 
-    item.green = (first.green * (divide*(itr)) )
-               + (last.green *(1 - (divide*(itr))));
-
-    item.blue  = (first.blue * (divide*(itr)) )
-               + (last.blue *(1 - (divide*(itr))));
+    store[pos].blue = (store[0].blue * (divide*(itr)) )
+                    + (store[listsize-1].blue *(1 - (divide*(itr))));
 
     char value[7];
     value[0] = '\0';
-    strcat(value, rgb_to_hex(item.red));
-    strcat(value, rgb_to_hex(item.green));
-    strcat(value, rgb_to_hex(item.blue));
+    strcat(value, rgb_to_hex(store[pos].red));
+    strcat(value, rgb_to_hex(store[pos].green));
+    strcat(value, rgb_to_hex(store[pos].blue));
 
     printf("%s ", value);
-    colors[itr] = item;
+    pos = pos+1;
   }
 
   char lastvalue[7];
   lastvalue[0] = '\0';
-  strcat(lastvalue, rgb_to_hex(last.red));
-  strcat(lastvalue, rgb_to_hex(last.green));
-  strcat(lastvalue, rgb_to_hex(last.blue));
+  strcat(lastvalue, rgb_to_hex(store[listsize-1].red));
+  strcat(lastvalue, rgb_to_hex(store[listsize-1].green));
+  strcat(lastvalue, rgb_to_hex(store[listsize-1].blue));
 
   printf("%s\n", lastvalue);
 
-  return colors;
+  return store;
 }
