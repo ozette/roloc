@@ -115,7 +115,7 @@ void* find_request(char *line)
  
     token = strtok(NULL, " ");
 
-    if(token && (strcmp(token, "TO") == 0)) {
+    if(token && (strcmp(token, "to") == 0)) {
 
       token = strtok(NULL, " ");
 
@@ -140,7 +140,7 @@ void* find_request(char *line)
 
           token = strtok(NULL, " ");
 
-          if(token && (strcmp(token, "IMG") == 0)) {
+          if(token && (strcmp(token, "img") == 0)) {
 
             token = strtok(NULL, " ");
             int width = (token && atoi(token)) ? width = atoi(token) : 200;

@@ -139,9 +139,12 @@ void set_last_color(char *line)
  */
 char* find_color(char *line, const char *dir, int silence)
 {
+  char linecopy[strlen(line)+1];
+  strcpy(linecopy, line);
+
   int itr;
-  for(itr = 0; itr < strlen(line); itr++) {
-    line[itr] = toupper(line[itr]);
+  for(itr = 0; itr < strlen(linecopy); itr++) {
+    linecopy[itr] = toupper(linecopy[itr]);
   }
 
   FILE *fp   = NULL;
@@ -165,7 +168,7 @@ char* find_color(char *line, const char *dir, int silence)
 
     while(fscanf(fp, "%s %s", name, value) != EOF) {
 
-      if(strcmp(line, name) == 0) {
+      if(strcmp(linecopy, name) == 0) {
 
         silence ? : printf("%s\n", value);
         set_last_color(value);
@@ -175,7 +178,7 @@ char* find_color(char *line, const char *dir, int silence)
 
         return value;
 
-      } else if(strcmp(line, value) == 0) {
+      } else if(strcmp(linecopy, value) == 0) {
 
         silence ? : printf("%s\n", name);
         strcpy(value_container, value);
@@ -187,8 +190,8 @@ char* find_color(char *line, const char *dir, int silence)
     fclose(fp);
     fp = NULL;
 
-    if((strlen(line)== 6)) {
-      strcpy(value_container, line);
+    if((strlen(linecopy)== 6)) {
+      strcpy(value_container, linecopy);
       set_last_color(value_container);
       return value_container;
     }
