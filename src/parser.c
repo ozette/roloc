@@ -157,7 +157,6 @@ void* find_request(char *line)
             cairo_scale(cr, width, height);
 
             double coverage = (1.0/(amount+2));
-            printf("coverage is %f\n", coverage);
             int itr;
             for(itr = 0; itr < amount+2; itr++) {
 
