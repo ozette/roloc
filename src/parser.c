@@ -33,11 +33,7 @@ char* find_arithmetic(char *line)
   char *nosupport = strpbrk(linecopy, "`~!@#$%^&*()-_=[{]}\\|';:'\",<.>/?");
 
   if(nosupport) {
-
-    printf("Currently only additive blending with the + operand is supported: "
-           "%s\n", linecopy); 
     return NULL;
-
   } else if(strpbrk(linecopy, "+")) {
 
     /* additive blend functionality */
