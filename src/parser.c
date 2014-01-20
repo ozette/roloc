@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "parser.h"
 #include "command.h"
@@ -142,39 +143,64 @@ void* find_request(char *line)
 
           if(token && (strcmp(token, "img") == 0)) {
 
-            token = strtok(NULL, " ");
-            int width = (token && atoi(token)) ? width = atoi(token) : 200;
+            int horizontal = 0;
+            int width      = 200;
+            int height     = 200;
+            char *filename = "gradient.png";
 
             token = strtok(NULL, " ");
-            int height = (token && atoi(token)) ? height = atoi(token) : 200;
+            if(token && (strcmp(token, "h") == 0)) {
+              horizontal = 1;
+              token = strtok(NULL, " ");
+            }
 
+            if(token && atoi(token)) {
+              width = atoi(token);
+              token = strtok(NULL, " ");
+            }
+
+            if(token && atoi(token)) {
+              height = atoi(token);
+              token = strtok(NULL, " ");
+            }
+
+            if(token) {
+              filename = token;
+            }
 
             cairo_surface_t *surface = cairo_image_surface_create(
               CAIRO_FORMAT_ARGB32, width, height
             );
 
             cairo_t *cr = cairo_create(surface);
-            cairo_scale(cr, width, height);
 
-            double coverage = (1.0/(amount+2));
-            int itr;
-            for(itr = 0; itr < amount+2; itr++) {
+            cairo_pattern_t *pat;
 
-              cairo_set_source_rgb(
-                cr,
-                store[itr].red,
-                store[itr].green,
-                store[itr].blue
-              );
-
-              cairo_rectangle(cr, 0.0+(coverage*itr), 0.0, coverage, 1.0);
-              cairo_fill(cr);
+            if(horizontal) {
+              pat = cairo_pattern_create_linear(0.0, 0.0, 0.0, height);
+            } else {
+              pat = cairo_pattern_create_linear(0.0, 0.0, width, 0.0);
             }
 
-            cairo_destroy(cr);
+            double coverage = (1.0/(amount+2));
 
-            token = strtok(NULL, " ");
-            char *filename = (token) ? token : "gradient.png";
+            int itr;
+            for(itr = 0; itr < amount+2; itr++) {
+              cairo_pattern_add_color_stop_rgba(
+                pat,
+                coverage*itr,
+                store[itr].red,
+                store[itr].green,
+                store[itr].blue,
+                1
+              );
+            }
+
+            cairo_rectangle(cr, 0, 0, width, height);
+            cairo_set_source(cr, pat);
+            cairo_fill(cr);
+            cairo_destroy(pat);
+            cairo_destroy(cr);
 
             cairo_surface_write_to_png(surface, filename);
             cairo_surface_destroy(surface);
