@@ -60,3 +60,68 @@ char* rgb_to_hex(float value)
 
   return hex_component;
 }
+
+
+/*! Converts a rgb value to its HSV representation
+ *  red, green and blue arguments must each be in the range of 0 and 1 */
+HSV rgb_to_hsv(float red, float green, float blue)
+{ 
+  HSV computed;
+  float minimum;
+  float maximum;
+
+  minimum = red;
+  if(green < red) {
+    minimum = green;
+    if(green > blue ) {
+      minimum = blue;
+    }
+  }
+  if(blue < red) {
+    minimum = blue;
+  }
+
+  maximum = red;
+  if(green > red) {
+    maximum = green;
+    if(blue > green) {
+      maximum = blue;
+    }
+  } 
+  if(blue > red) {
+    maximum = blue;
+  }
+
+  computed.value = maximum;
+  float delta = maximum - minimum;
+
+  /* grayscale color */
+  if(maximum == minimum) {
+    computed.hue = 0;
+    computed.saturation = 0;
+
+    printf("hsv(%d, %f, %f)\n", (int) computed.hue, computed.saturation,
+                                computed.value);
+    return computed;
+  }
+
+  computed.saturation = delta/maximum;
+
+  if(red == maximum) {
+    computed.hue = (green - blue) / delta;
+  } else if(green == maximum) {
+    computed.hue = 2 + (blue - green) / delta;
+  } else {
+    computed.hue = 4 + (red - blue) / delta;
+  }
+
+  computed.hue = computed.hue * 60;
+  printf("hue: %d\n", computed.hue);
+  if(computed.hue < 0) {
+    computed.hue = computed.hue + 360;
+  }
+
+  printf("hsv(%d, %f, %f)\n", (int) computed.hue, computed.saturation,
+                            computed.value);
+  return computed;
+}

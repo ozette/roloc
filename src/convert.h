@@ -5,5 +5,13 @@
 * <http://www.gnu.org/licenses/>.
 */
 
+typedef struct HSV {
+  float hue;
+  float saturation;
+  float value; 
+} HSV;
+
 float hex_to_rgb(char digit, char digit2);
 char* rgb_to_hex(float value);
+
+HSV rgb_to_hsv(float red, float green, float blue);
