@@ -64,9 +64,9 @@ char* find_arithmetic(char *line)
       }
     }
  
-    red = red/count;
-    green = green/count;
-    blue = blue/count;
+    red = red ? red/count : 0.0;
+    green = green ? green/count : 0.0;
+    blue = blue ? blue/count : 0.0;
 
 
     char result[7];
