@@ -5,10 +5,10 @@
 * <http://www.gnu.org/licenses/>.
 */
 
-typedef struct GradientColor {
+typedef struct roloc_color_t {
   float red;
   float green;
   float blue;
-} GradientColor;
+} roloc_color_t;
 
-GradientColor* gradient(char *color1, char *color2, int amount);
+roloc_color_t* gradient(char *color1, char *color2, int amount);
