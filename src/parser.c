@@ -125,7 +125,7 @@ void* find_request(char *line)
 
         if(token && atoi(token)) {
 
-          GradientColor *store;
+          roloc_color_t *store;
           store = gradient(color_1, color_2, atoi(token));
 
           free(color_1);
