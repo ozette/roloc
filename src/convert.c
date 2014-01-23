@@ -62,6 +62,46 @@ char* rgb_to_hex(float value)
 }
 
 
+/*! Converts a HSV representation to its rgb equivalent. */
+roloc_color_t hsv_to_rgb(HSV object)
+{
+  roloc_color_t color = {0.0, 0.0, 0.0};
+
+  /* grayscale color */
+  if(object.saturation == 0) {
+    color.red = color.green = color.blue = object.value;
+    return color; 
+  }
+
+  object.hue = object.hue/60;
+
+  int i = floor(object.hue);
+  float factorial = object.hue - i;
+
+  float p = object.value * (1 - object.saturation);
+  float q = object.value * (1 - object.saturation * factorial);
+  float t = object.value * (1 - object.saturation * (1 - factorial)); 
+
+  switch(i) {
+    case 0: color = (roloc_color_t) {object.value, t, p}; break;
+    case 1: color = (roloc_color_t) {q, object.value, p}; break;
+    case 2: color = (roloc_color_t) {p, object.value, t}; break;
+    case 3: color = (roloc_color_t) {p, q, object.value}; break;
+    case 4: color = (roloc_color_t) {t, p, object.value}; break;
+    case 5: color = (roloc_color_t) {object.value, p, q}; break;
+  }
+
+  color.red   = color.red*255;
+  color.green = color.green*255;
+  color.blue  = color.blue*255;
+
+  printf("rgb( %d, %d, %d)\n", (int) color.red, (int) color.green,
+                               (int) color.blue);
+
+  return color;
+}
+
+
 /*! Converts a rgb value to its HSV representation
  *  red, green and blue arguments must each be in the range of 0 and 1 */
 HSV rgb_to_hsv(float red, float green, float blue)
@@ -116,7 +156,6 @@ HSV rgb_to_hsv(float red, float green, float blue)
   }
 
   computed.hue = computed.hue * 60;
-  printf("hue: %d\n", computed.hue);
   if(computed.hue < 0) {
     computed.hue = computed.hue + 360;
   }

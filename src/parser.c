@@ -15,7 +15,6 @@
 #include "command.h"
 #include "color.h"
 #include "convert.h"
-#include "calculate.h"
 #include "graphics.h"
 
 

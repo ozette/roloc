@@ -11,7 +11,6 @@
 #include <stdlib.h>
 
 #include "calculate.h"
-#include "convert.h"
 
 
 /*! Create a gradient between two colors. The amount of colors in the gradient
