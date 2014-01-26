@@ -12,4 +12,4 @@ int  populate_colorwheel(const char *dir);
 int  list();
 
 void set_last_color(char *line);
-char*  find_color(char *line, const char *RLC_PATH, int silence);
+char *find_color(char *line, const char *RLC_PATH, int silence);

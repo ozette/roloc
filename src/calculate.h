@@ -7,4 +7,4 @@
 
 #include "convert.h"
 
-roloc_color_t* gradient(char *color1, char *color2, int amount);
+roloc_rgb *gradient(char *color1, char *color2, int amount);

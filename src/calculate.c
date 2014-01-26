@@ -16,19 +16,19 @@
 /*! Create a gradient between two colors. The amount of colors in the gradient
  *  is determined by the value of amount. 
  */
-roloc_color_t* gradient(char *color1, char *color2, int amount)
+roloc_rgb *gradient(char *color1, char *color2, int amount)
 {
   int listsize = amount+2;
 
-  roloc_color_t *store = malloc(sizeof(roloc_color_t)*listsize);
+  roloc_rgb *store = malloc(sizeof(roloc_rgb)*listsize);
 
-  store[0] = (roloc_color_t) {
+  store[0] = (roloc_rgb) {
     hex_to_rgb(color1[0], color1[1]),
     hex_to_rgb(color1[2], color1[3]),
     hex_to_rgb(color1[4], color1[5])
   };
 
-  store[listsize-1] = (roloc_color_t) {
+  store[listsize-1] = (roloc_rgb) {
     hex_to_rgb(color2[0], color2[1]),
     hex_to_rgb(color2[2], color2[3]),
     hex_to_rgb(color2[4], color2[5])

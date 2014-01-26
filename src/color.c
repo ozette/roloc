@@ -137,7 +137,7 @@ void set_last_color(char *line)
  *  The first matching color name's value will be printed. In case a color value
  *  is given instead, all color names with that value may be printed.
  */
-char* find_color(char *line, const char *dir, int silence)
+char *find_color(char *line, const char *dir, int silence)
 {
   char linecopy[strlen(line)+1];
   strcpy(linecopy, line);

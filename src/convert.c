@@ -48,7 +48,7 @@ float hex_to_rgb(char hexchar, char hexchar2)
 
 /*! Converts a rgb value between 0.0 and 1.0 to its hexadecimal representation.
  *  E.g. 1.0 becomes FF */
-char* rgb_to_hex(float value)
+char *rgb_to_hex(float value)
 {
   int val = (int) (value*RGB_MAX);
 
@@ -63,9 +63,9 @@ char* rgb_to_hex(float value)
 
 
 /*! Converts a HSV representation to its rgb equivalent. */
-roloc_color_t hsv_to_rgb(HSV object)
+roloc_rgb hsv_to_rgb(HSV object)
 {
-  roloc_color_t color = {0.0, 0.0, 0.0};
+  roloc_rgb color = {0.0, 0.0, 0.0};
 
   /* grayscale color */
   if(object.saturation == 0) {
@@ -83,12 +83,12 @@ roloc_color_t hsv_to_rgb(HSV object)
   float t = object.value * (1 - object.saturation * (1 - factorial)); 
 
   switch(i) {
-    case 0: color = (roloc_color_t) {object.value, t, p}; break;
-    case 1: color = (roloc_color_t) {q, object.value, p}; break;
-    case 2: color = (roloc_color_t) {p, object.value, t}; break;
-    case 3: color = (roloc_color_t) {p, q, object.value}; break;
-    case 4: color = (roloc_color_t) {t, p, object.value}; break;
-    case 5: color = (roloc_color_t) {object.value, p, q}; break;
+    case 0: color = (roloc_rgb) {object.value, t, p}; break;
+    case 1: color = (roloc_rgb) {q, object.value, p}; break;
+    case 2: color = (roloc_rgb) {p, object.value, t}; break;
+    case 3: color = (roloc_rgb) {p, q, object.value}; break;
+    case 4: color = (roloc_rgb) {t, p, object.value}; break;
+    case 5: color = (roloc_rgb) {object.value, p, q}; break;
   }
 
   color.red   = color.red*255;

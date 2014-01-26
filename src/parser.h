@@ -5,5 +5,5 @@
 * <http://www.gnu.org/licenses/>.
 */
 
-char* find_arithmetic(char *line);
-void* find_request(char *line);
+char *find_arithmetic(char *line);
+void *find_request(char *line);

@@ -23,7 +23,7 @@
  *  Conversion happens between hex to rgb with the final result being a hex
  *  value.
 */
-char* find_arithmetic(char *line)
+char *find_arithmetic(char *line)
 {
 
   char linecopy[strlen(line)+1];
@@ -90,7 +90,7 @@ char* find_arithmetic(char *line)
  *  request handle function.
  *  Possible request lines are "red to blue 5" or "repr rgb".
  */
-void* find_request(char *line)
+void *find_request(char *line)
 {
 
   char linecopy[strlen(line)+1];
@@ -124,7 +124,7 @@ void* find_request(char *line)
 
         if(token && atoi(token)) {
 
-          roloc_color_t *store;
+          roloc_rgb *store;
           store = gradient(color_1, color_2, atoi(token));
 
           free(color_1);

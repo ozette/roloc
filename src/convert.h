@@ -5,11 +5,11 @@
 * <http://www.gnu.org/licenses/>.
 */
 
-typedef struct roloc_color_t {
+typedef struct roloc_rgb {
   float red;
   float green;
   float blue;
-} roloc_color_t;
+} roloc_rgb;
 
 typedef struct HSV {
   float hue;
@@ -18,7 +18,7 @@ typedef struct HSV {
 } HSV;
 
 float hex_to_rgb(char digit, char digit2);
-char* rgb_to_hex(float value);
+char *rgb_to_hex(float value);
 
 HSV rgb_to_hsv(float red, float green, float blue);
-roloc_color_t hsv_to_rgb(HSV object);
+roloc_rgb hsv_to_rgb(HSV object);
