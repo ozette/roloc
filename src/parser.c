@@ -14,7 +14,6 @@
 #include "parser.h"
 #include "command.h"
 #include "color.h"
-#include "convert.h"
 #include "graphics.h"
 
 
@@ -137,68 +136,7 @@ void *find_request(char *line)
           token = strtok(NULL, " ");
 
           if(token && (strcmp(token, "img") == 0)) {
-
-            int horizontal = 0;
-            int width      = 200;
-            int height     = 200;
-            char *filename = "gradient.png";
-
-            token = strtok(NULL, " ");
-            if(token && (strcmp(token, "h") == 0)) {
-              horizontal = 1;
-              token = strtok(NULL, " ");
-            }
-
-            if(token && atoi(token)) {
-              width = atoi(token);
-              token = strtok(NULL, " ");
-            }
-
-            if(token && atoi(token)) {
-              height = atoi(token);
-              token = strtok(NULL, " ");
-            }
-
-            if(token) {
-              filename = token;
-            }
-
-            cairo_surface_t *surface = cairo_image_surface_create(
-              CAIRO_FORMAT_ARGB32, width, height
-            );
-
-            cairo_t *cr = cairo_create(surface);
-
-            cairo_pattern_t *pat;
-
-            if(horizontal) {
-              pat = cairo_pattern_create_linear(0.0, 0.0, 0.0, height);
-            } else {
-              pat = cairo_pattern_create_linear(0.0, 0.0, width, 0.0);
-            }
-
-            double coverage = (1.0/(amount+2));
-
-            int itr;
-            for(itr = 0; itr < amount+2; itr++) {
-              cairo_pattern_add_color_stop_rgba(
-                pat,
-                coverage*itr,
-                store[itr].red,
-                store[itr].green,
-                store[itr].blue,
-                1
-              );
-            }
-
-            cairo_rectangle(cr, 0, 0, width, height);
-            cairo_set_source(cr, pat);
-            cairo_fill(cr);
-            cairo_destroy(pat);
-            cairo_destroy(cr);
-
-            cairo_surface_write_to_png(surface, filename);
-            cairo_surface_destroy(surface);
+            export_linear_gradient_image(store, amount, token);
           }
         }
       }

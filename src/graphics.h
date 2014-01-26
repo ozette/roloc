@@ -9,5 +9,8 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 
+#include "convert.h"
+
 void view();
 void display();
+void export_linear_gradient_image(roloc_rgb *store, int amount, char *token);
