@@ -11,14 +11,14 @@ typedef struct roloc_rgb {
   float blue;
 } roloc_rgb;
 
-typedef struct HSV {
+typedef struct roloc_hsv {
   float hue;
   float saturation;
   float value; 
-} HSV;
+} roloc_hsv;
 
 float hex_to_rgb(char digit, char digit2);
 char *rgb_to_hex(float value);
 
-HSV rgb_to_hsv(float red, float green, float blue);
-roloc_rgb hsv_to_rgb(HSV object);
+roloc_hsv rgb_to_hsv(float red, float green, float blue);
+roloc_rgb hsv_to_rgb(roloc_hsv object);

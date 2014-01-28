@@ -62,8 +62,8 @@ char *rgb_to_hex(float value)
 }
 
 
-/*! Converts a HSV representation to its rgb equivalent. */
-roloc_rgb hsv_to_rgb(HSV object)
+/*! Converts a roloc_hsv representation to its rgb equivalent. */
+roloc_rgb hsv_to_rgb(roloc_hsv object)
 {
   roloc_rgb color = {0.0, 0.0, 0.0};
 
@@ -102,11 +102,11 @@ roloc_rgb hsv_to_rgb(HSV object)
 }
 
 
-/*! Converts a rgb value to its HSV representation
+/*! Converts a rgb value to its roloc_hsv representation
  *  red, green and blue arguments must each be in the range of 0 and 1 */
-HSV rgb_to_hsv(float red, float green, float blue)
+roloc_hsv rgb_to_hsv(float red, float green, float blue)
 { 
-  HSV computed;
+  roloc_hsv computed;
   float minimum;
   float maximum;
 
