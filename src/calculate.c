@@ -79,3 +79,24 @@ roloc_rgb *calculate_gradient(char *color1, char *color2, int amount)
 
   return store;
 }
+
+
+/*! Calculate the complementary color of the provided keycolor 
+ *  char *keycolor must be a hexidecimal value e.g FF0000
+ */
+roloc_hsv calculate_complement(char *keycolor)
+{
+  float r = hex_to_rgb(keycolor[0], keycolor[1]);
+  float g = hex_to_rgb(keycolor[2], keycolor[3]);
+  float b = hex_to_rgb(keycolor[4], keycolor[5]);
+
+  roloc_hsv key_color = rgb_to_hsv(r, g, b);
+
+  roloc_hsv complementary_color = {
+    key_color.hue+180 > 359 ? key_color.hue+180-359 : key_color.hue+180,
+    key_color.saturation,
+    key_color.value
+  };
+
+  return complementary_color;
+}

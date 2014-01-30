@@ -8,3 +8,4 @@
 #include "convert.h"
 
 roloc_rgb *calculate_gradient(char *color1, char *color2, int amount);
+roloc_hsv calculate_complement(char *keycolor);
