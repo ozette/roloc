@@ -16,7 +16,7 @@
 /*! Create a gradient between two colors. The amount of colors in the gradient
  *  is determined by the value of amount. 
  */
-roloc_rgb *gradient(char *color1, char *color2, int amount)
+roloc_rgb *calculate_gradient(char *color1, char *color2, int amount)
 {
   int listsize = amount+2;
 
