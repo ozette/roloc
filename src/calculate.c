@@ -93,7 +93,7 @@ roloc_hsv calculate_complement(char *keycolor)
   roloc_hsv key_color = rgb_to_hsv(r, g, b);
 
   roloc_hsv complementary_color = {
-    key_color.hue+180 > 359 ? key_color.hue+180-359 : key_color.hue+180,
+    key_color.hue+180 > 360 ? key_color.hue+180-360 : key_color.hue+180,
     key_color.saturation,
     key_color.value
   };
