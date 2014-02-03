@@ -160,8 +160,15 @@ void *find_request(char *line)
       /* complement color calculation functionality */
       token = strtok(NULL, " ");
       if(token && (color = find_color(token, RLC_PATH, 1))) {
-        roloc_hsv c = calculate_complement(color);
-        printf("hsv(%d, %.2f, %.2f)\n", (int) c.hue, c.saturation, c.value);
+        roloc_rgb c = hsv_to_rgb(calculate_complement(color));
+
+        char hex[7];
+        hex[0] = '\0';
+        strcat(hex, rgb_to_hex(c.red/255));
+        strcat(hex, rgb_to_hex(c.green/255));
+        strcat(hex, rgb_to_hex(c.blue/255));
+
+        printf("%s\n", hex);
       }
     }
   }
