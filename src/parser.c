@@ -16,6 +16,7 @@
 #include "color.h"
 #include "graphics.h"
 
+roloc_hsv calculate_complement(char *keycolor);
 
 /*! Find arithmetic in a provided line and call the appropriate blend function.
  *  Variable names in the line are sought for in color.txt.
@@ -140,6 +141,23 @@ void *find_request(char *line)
           }
         }
       }
+    }
+  } else if(token && strcmp(token, "hsv") == 0) {
+    /* hsv repr. functionality */
+    token = strtok(NULL, " ");
+    if(token && (color = find_color(token, RLC_PATH, 1))) {
+      rgb_to_hsv(
+        hex_to_rgb(color[0], color[1]),
+        hex_to_rgb(color[2], color[3]),
+        hex_to_rgb(color[4], color[5])
+      );
+    }
+  } else if(token && strcmp(token, "complement") == 0) {
+    /* complement color calculation functionality */
+    token = strtok(NULL, " ");
+    if(token && (color = find_color(token, RLC_PATH, 1))) {
+      roloc_hsv c = calculate_complement(color);
+      printf("hsv(%d, %.2f, %.2f)\n", (int) c.hue, c.saturation, c.value);
     }
   }
 
