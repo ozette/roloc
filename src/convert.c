@@ -107,30 +107,8 @@ roloc_rgb hsv_to_rgb(roloc_hsv object)
 roloc_hsv rgb_to_hsv(float red, float green, float blue)
 { 
   roloc_hsv computed;
-  float minimum;
-  float maximum;
-
-  minimum = red;
-  if(green < red) {
-    minimum = green;
-    if(green > blue ) {
-      minimum = blue;
-    }
-  }
-  if(blue < red) {
-    minimum = blue;
-  }
-
-  maximum = red;
-  if(green > red) {
-    maximum = green;
-    if(blue > green) {
-      maximum = blue;
-    }
-  } 
-  if(blue > red) {
-    maximum = blue;
-  }
+  float minimum = red < green ? fmin(red, blue) : fmin(green, blue);
+  float maximum = red > green ? fmax(red, blue) : fmax(green, blue);
 
   computed.value = maximum;
   float delta = maximum - minimum;
@@ -147,20 +125,29 @@ roloc_hsv rgb_to_hsv(float red, float green, float blue)
 
   computed.saturation = delta/maximum;
 
+  float d_red   = ((maximum - red)/6 + (delta/2)) / delta;
+  float d_green = ((maximum - green)/6 + (delta/2)) / delta;
+  float d_blue  = ((maximum - blue)/6 + (delta/2)) / delta;
+
+
   if(red == maximum) {
-    computed.hue = (green - blue) / delta;
+    computed.hue = d_blue - d_green;
   } else if(green == maximum) {
-    computed.hue = 2 + (blue - green) / delta;
-  } else {
-    computed.hue = 4 + (red - blue) / delta;
+    computed.hue = (1.0/3.0) + d_red - d_blue;
+  } else if(blue == maximum) {
+    computed.hue = (2.0/3.0) + d_green - d_red;
   }
 
-  computed.hue = computed.hue * 60;
   if(computed.hue < 0) {
-    computed.hue = computed.hue + 360;
+    computed.hue = computed.hue + 1;
+  }
+  if(computed.hue > 1) {
+    computed.hue = computed.hue - 1;
   }
 
-  printf("hsv(%d, %f, %f)\n", (int) computed.hue, computed.saturation,
-                            computed.value);
+  computed.hue = computed.hue * 360;
+
+  printf("hsv(%d, %.2f, %.2f)\n", (int) computed.hue, computed.saturation,
+                                  computed.value);
   return computed;
 }
