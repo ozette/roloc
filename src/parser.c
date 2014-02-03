@@ -169,6 +169,7 @@ void *find_request(char *line)
         strcat(hex, rgb_to_hex(c.blue/255));
 
         printf("%s\n", hex);
+        set_last_color(hex);
       }
     }
   }
