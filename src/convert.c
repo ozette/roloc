@@ -95,9 +95,6 @@ roloc_rgb hsv_to_rgb(roloc_hsv object)
   color.green = color.green*255;
   color.blue  = color.blue*255;
 
-  printf("rgb( %d, %d, %d)\n", (int) color.red, (int) color.green,
-                               (int) color.blue);
-
   return color;
 }
 
@@ -118,8 +115,6 @@ roloc_hsv rgb_to_hsv(float red, float green, float blue)
     computed.hue = 0;
     computed.saturation = 0;
 
-    printf("hsv(%d, %f, %f)\n", (int) computed.hue, computed.saturation,
-                                computed.value);
     return computed;
   }
 
@@ -147,7 +142,5 @@ roloc_hsv rgb_to_hsv(float red, float green, float blue)
 
   computed.hue = computed.hue * 360;
 
-  printf("hsv(%d, %.2f, %.2f)\n", (int) computed.hue, computed.saturation,
-                                  computed.value);
   return computed;
 }
