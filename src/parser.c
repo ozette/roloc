@@ -153,7 +153,7 @@ void *find_request(char *line)
           hex_to_rgb(color[2], color[3]),
           hex_to_rgb(color[4], color[5])
         );
-        printf("hsv(%f, %f, %f)\n", (int) o.hue, o.saturation, o.value);
+        printf("hsv(%d, %f, %f)\n", (int) o.hue, o.saturation, o.value);
      }
    } else if(strcmp(token, "complement") == 0 ||
              strcmp(token, "complementary") == 0) {
