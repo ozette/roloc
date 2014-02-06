@@ -5,6 +5,8 @@
 * <http://www.gnu.org/licenses/>.
 */
 
+#include "roloc.h"
+
 extern int  RLC_program_color_count;    /*!< The amount of known colors. */
 extern char RLC_last_processed_color[7];  /*!< The last processed color. */
 

@@ -5,6 +5,7 @@
 * <http://www.gnu.org/licenses/>.
 */
 
+#include "roloc.h"
 #include "convert.h"
 
 roloc_rgb *calculate_gradient(char *color1, char *color2, int amount);

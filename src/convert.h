@@ -5,17 +5,7 @@
 * <http://www.gnu.org/licenses/>.
 */
 
-typedef struct roloc_rgb {
-  float red;
-  float green;
-  float blue;
-} roloc_rgb;
-
-typedef struct roloc_hsv {
-  float hue;
-  float saturation;
-  float value; 
-} roloc_hsv;
+#include "roloc.h"
 
 float hex_to_rgb(char digit, char digit2);
 char *rgb_to_hex(float value);
