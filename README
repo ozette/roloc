@@ -40,5 +40,4 @@ So far only ran on GNU/Linux.
 
 Dependencies:
 > Cairo
-> GLX
 > Freeglut
