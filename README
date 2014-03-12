@@ -27,7 +27,7 @@ Examples of readline usage:
 
   > red to blue 4 img ["h"] [width] [height] [png filename]
 
-This is free software released under the GNU/GPLv3. You are free to change and
+roloc is free software released under the GNU/GPLv3. You are free to change and
 redistribute it under certain conditions. For more information see COPYING or
 <http://www.gnu.org/licenses/>.
 
@@ -40,4 +40,8 @@ So far only ran on GNU/Linux.
 
 Dependencies:
 > Cairo
-> Freeglut
+> GLFW 3.1
+
+GLFW 3.1 is currently distributed with the source code and is licensed under
+zlib/libpng.
+For more information see COPYING.zlib or http://www.glfw.org/license.html.

@@ -93,5 +93,6 @@ int startmsg()
 /*! Clean up routine, e.g. free eventual allocated memory in the program. */
 int cleanup()
 {
+  glfwTerminate();
   exit(0);
 }

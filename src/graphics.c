@@ -16,43 +16,49 @@
 /*! Display the last processed or queried color in a simple window. */
 void view()
 {
-  glutCreateWindow("roloc view");
-  glutDisplayFunc(&display);
-  glutMainLoop();
+  /* request window with opengl context */
+  GLFWwindow *window = glfwCreateWindow(500, 500, "roloc view", NULL, NULL);
+  if(!window) {
+    glfwTerminate();
+    fprintf(stderr, "Failed to create a window.\n");
+    return 1;
+  }
+  /* sets window to the current context */
+  glfwMakeContextCurrent(window);
 
-  /*- re-init the glut library and option after it's cleaned up. -*/
-  int    RLC_DUMMY_INT = 1;
-  char **RLC_DUMMY_PTR = NULL;
-  glutInit(&RLC_DUMMY_INT, RLC_DUMMY_PTR);
-  glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+  /* render loop */
+  while(!glfwWindowShouldClose(window)) {
+
+    glClear(GL_COLOR_BUFFER_BIT);
+  
+    float RED   = hex_to_rgb(RLC_last_processed_color[0],
+                             RLC_last_processed_color[1]);
+    float GREEN = hex_to_rgb(RLC_last_processed_color[2],
+                             RLC_last_processed_color[3]);
+    float BLUE  = hex_to_rgb(RLC_last_processed_color[4],
+                             RLC_last_processed_color[5]);
+  
+    glColor3f(RED, GREEN, BLUE);
+  
+    glBegin(GL_POLYGON);
+      glVertex2f(-1.0f, -1.0f);
+      glVertex2f(1.0f, -1.0f);
+      glVertex2f(1.0f, 1.0f);
+      glVertex2f(-1.0f, 1.0f);
+    glEnd();
+  
+    glFlush();
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  glfwDestroyWindow(window);
+  glfwPollEvents(); /*!< Temp. fix - this patch by dreda fixes the need for
+                     * a command buffer flush: http://git.io/_9n2fg */
+
+  return;
 }
-
-
-/*! The display function called by view().
- *  This function seems to be executed twice. */
-void display()
-{
-  glClear(GL_COLOR_BUFFER_BIT);
-
-  float RED   = hex_to_rgb(RLC_last_processed_color[0],
-                           RLC_last_processed_color[1]);
-  float GREEN = hex_to_rgb(RLC_last_processed_color[2],
-                           RLC_last_processed_color[3]);
-  float BLUE  = hex_to_rgb(RLC_last_processed_color[4],
-                           RLC_last_processed_color[5]);
-
-  glColor3f(RED, GREEN, BLUE);
-
-  glBegin(GL_POLYGON);
-    glVertex2f(-1.0f, -1.0f);
-    glVertex2f(1.0f, -1.0f);
-    glVertex2f(1.0f, 1.0f);
-    glVertex2f(-1.0f, 1.0f);
-  glEnd();
-
-  glFlush();
-}
-
 
 /* Generates and exports a linear gradient png image.
  *

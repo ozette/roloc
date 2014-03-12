@@ -5,7 +5,8 @@ CFLAGS=-Wall -DRELEASE=\"$(RELEASE)\"
 OBJDIR=obj
 TARGETS=$(addprefix $(OBJDIR)/, main.o interpreter.o command.o graphics.o \
                                 color.o convert.o calculate.o parser.o)
-LIBFLAGS=-lreadline -lcairo -lGL -lglut -lm
+LIBFLAGS=-lreadline -lcairo -lGL lib/libglfw3.a -lglfw -lm -lpthread -lX11 \
+         -lXxf86vm -lXi -lXrandr
 RELEASE=$(shell git describe --abbrev=0)
 OUTPUT=roloc
 

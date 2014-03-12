@@ -24,9 +24,10 @@ int main(int argc, char *argv[])
   /* process shell args */
   process_args(argc, argv);
 
-  /* init the (free)glut library */
-  glutInit(&argc, argv);
-  glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+  /* init glfw library */
+  if(!glfwInit()) {
+    return 1;
+  }
 
   /* start message */
   startmsg();

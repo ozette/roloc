@@ -7,7 +7,7 @@
 
 #include <cairo/cairo.h>
 #include <GL/gl.h>
-#include <GL/freeglut.h>
+#include <GL/glfw3.h>
 
 #include "convert.h"
 
