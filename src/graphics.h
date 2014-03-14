@@ -6,11 +6,13 @@
 */
 
 #include <cairo/cairo.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glfw3.h>
 
 #include "convert.h"
 
 void view();
+int  prepare_view();
 void display();
 void export_linear_gradient_image(roloc_rgb *store, int amount, char *token);
