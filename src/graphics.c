@@ -13,6 +13,9 @@
 #include "shaderutils.h"
 #include "color.h"
 
+#define VERT_PER_SQUARE  6
+#define RGB_ATTRIB_COUNT 3
+
 void free_resources();
 
 GLuint program;
@@ -74,14 +77,14 @@ void view()
 
     glVertexAttribPointer(
       attribute_v_color,
-      3,
+      RGB_ATTRIB_COUNT,
       GL_FLOAT,
       GL_FALSE,
       0,
       0
     );
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLES, 0, (roloc_store_count*VERT_PER_SQUARE));
 
     glDisableVertexAttribArray(attribute_coord2d);
     glDisableVertexAttribArray(attribute_v_color);
@@ -107,35 +110,66 @@ void free_resources() {
 }
 
 
+/* Prepare the view i.e determine the amount of requested colors and their
+ * attributes to display.
+ */
 int prepare_view() {
 
-  float red   = hex_to_rgb(RLC_last_processed_color[0],
-                           RLC_last_processed_color[1]);
-  float green = hex_to_rgb(RLC_last_processed_color[2],
-                           RLC_last_processed_color[3]);
-  float blue  = hex_to_rgb(RLC_last_processed_color[4],
-                           RLC_last_processed_color[5]);
+  GLfloat colors[roloc_store_count * VERT_PER_SQUARE * RGB_ATTRIB_COUNT];
+
+  int i, j, l;
+  int count = 0;
+
+  for(i = 0; i < roloc_store_count; i++) {
+    for(l = 0; l < VERT_PER_SQUARE; l++) {
+      for(j = 0; j < RGB_ATTRIB_COUNT; j++) {
+        if(j==0) {
+          colors[j+count] = (GLfloat) {
+            roloc_last_processed_colors[i].red
+          };
+        } else if(j==1) {
+          colors[j+count] = (GLfloat) {
+            roloc_last_processed_colors[i].green
+          };
+        } else if(j==2) {
+          colors[j+count] = (GLfloat) {
+            roloc_last_processed_colors[i].blue
+          };
+        }
+      }
+    count += 3;
+    }
+  }
 
   GLfloat vertices[] = {
     -1,  1,
-    -1, -1,
-     1,  1,
+    -1,  0,
+     0,  1,
+     0,  1,
+    -1,  0,
+     0,  0,
 
+     0,  1,
+     0,  0,
      1,  1,
+     1,  1,
+     0,  0,
+     1,  0,
+
+    -1,  0,
     -1, -1,
+     0,  0,
+     0,  0,
+    -1, -1,
+     0, -1,
+
+     0,  0,
+     0, -1,
+     1,  0,
+     1,  0,
+     0, -1,
      1, -1
   };
-
-  GLfloat colors[] = {
-    red, green, blue,
-    red, green, blue,
-    red, green, blue,
-
-    red, green, blue,
-    red, green, blue,
-    red, green, blue
-  };
-
 
   glGenBuffers(1, &square);
   glBindBuffer(GL_ARRAY_BUFFER, square);
@@ -182,7 +216,7 @@ int prepare_view() {
     return 1;
   }
 
-  return 0;
+  return 0; 
 }
 
 

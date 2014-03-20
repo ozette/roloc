@@ -16,6 +16,7 @@
 #include <GL/glfw3.h>
 
 #include "command.h"
+#include "color.h"
 
 #define RLC_VERSION "0.1.0"
 #define FONT_STD    "\033[0m"
@@ -95,5 +96,10 @@ int startmsg()
 int cleanup()
 {
   glfwTerminate();
+
+  if(roloc_last_processed_colors) {
+    free(roloc_last_processed_colors);
+  }
+
   exit(0);
 }

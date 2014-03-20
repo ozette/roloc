@@ -15,6 +15,8 @@
 
 
 char RLC_last_processed_color[] = "000000";
+roloc_rgb *roloc_last_processed_colors;
+int roloc_store_count = 0;
 
 /* revise: static name and value size, prevent overflows
  * currently namespace global, so it remains in program memory */
@@ -124,6 +126,37 @@ void set_last_color(char *line)
 {
   RLC_last_processed_color[0] = '\0';
   strncpy(RLC_last_processed_color, line, 7);
+  return;
+}
+
+
+void r_set_last_color(roloc_rgb *store, int amount)
+{
+  if(roloc_last_processed_colors) {
+
+    printf("resetting last color store..\n");
+    free(roloc_last_processed_colors);
+    roloc_last_processed_colors = NULL;
+
+    roloc_last_processed_colors = malloc(sizeof(roloc_rgb)*amount);
+    memcpy(roloc_last_processed_colors, store, sizeof(roloc_rgb)*amount);
+
+    printf("color store size is now %zu..\n", sizeof(roloc_rgb)*amount);
+
+    roloc_store_count = amount;
+
+  } else {
+
+    roloc_last_processed_colors = malloc(sizeof(roloc_rgb)*amount);
+    memcpy(roloc_last_processed_colors, store, sizeof(roloc_rgb)*amount);
+
+    roloc_store_count = amount;
+
+    printf("color store size is now %zu..\n", sizeof(roloc_rgb)*amount);
+
+    //free(roloc_last_processed_colors); cleanup routine should call this
+    //if roloc_last_processed_colors is defined.
+  }
   return;
 }
 

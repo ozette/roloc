@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "command.h"
 #include "color.h"
-#include "graphics.h"
+#include "convert.h"
 
 roloc_hsv calculate_complement(char *keycolor);
 
@@ -133,8 +133,11 @@ void *find_request(char *line)
           color_2 = NULL;
 
           int amount = atoi(token);
+          amount = amount + 2;
 
           token = strtok(NULL, " ");
+
+          r_set_last_color(store, amount);
 
           if(token && (strcmp(token, "img") == 0)) {
             export_linear_gradient_image(store, amount, token);
