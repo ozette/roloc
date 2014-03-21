@@ -12,6 +12,7 @@
 #include <ctype.h>
 
 #include "color.h"
+#include "convert.h"
 
 
 char RLC_last_processed_color[] = "000000";
@@ -134,14 +135,11 @@ void r_set_last_color(roloc_rgb *store, int amount)
 {
   if(roloc_last_processed_colors) {
 
-    printf("resetting last color store..\n");
     free(roloc_last_processed_colors);
     roloc_last_processed_colors = NULL;
 
     roloc_last_processed_colors = malloc(sizeof(roloc_rgb)*amount);
     memcpy(roloc_last_processed_colors, store, sizeof(roloc_rgb)*amount);
-
-    printf("color store size is now %zu..\n", sizeof(roloc_rgb)*amount);
 
     roloc_store_count = amount;
 
@@ -151,11 +149,6 @@ void r_set_last_color(roloc_rgb *store, int amount)
     memcpy(roloc_last_processed_colors, store, sizeof(roloc_rgb)*amount);
 
     roloc_store_count = amount;
-
-    printf("color store size is now %zu..\n", sizeof(roloc_rgb)*amount);
-
-    //free(roloc_last_processed_colors); cleanup routine should call this
-    //if roloc_last_processed_colors is defined.
   }
   return;
 }
@@ -204,7 +197,13 @@ char *find_color(char *line, const char *dir, int silence)
       if(strcmp(linecopy, name) == 0) {
 
         silence ? : printf("%s\n", value);
-        set_last_color(value);
+
+        roloc_rgb val;
+        val.red   = hex_to_rgb(value[0], value[1]); 
+        val.green = hex_to_rgb(value[2], value[3]); 
+        val.blue  = hex_to_rgb(value[4], value[5]); 
+
+        r_set_last_color(&val, 1);
 
         fclose(fp);
         fp = NULL;
@@ -214,9 +213,13 @@ char *find_color(char *line, const char *dir, int silence)
       } else if(strcmp(linecopy, value) == 0) {
 
         silence ? : printf("%s\n", name);
-        strcpy(value_container, value);
-        set_last_color(value_container);
 
+        roloc_rgb val;
+        val.red   = hex_to_rgb(value[0], value[1]); 
+        val.green = hex_to_rgb(value[2], value[3]); 
+        val.blue  = hex_to_rgb(value[4], value[5]); 
+
+        r_set_last_color(&val, 1);
       }
     }
 
@@ -224,8 +227,16 @@ char *find_color(char *line, const char *dir, int silence)
     fp = NULL;
 
     if((strlen(linecopy)== 6)) {
+
       strcpy(value_container, linecopy);
-      set_last_color(value_container);
+
+      roloc_rgb val;
+      val.red   = hex_to_rgb(linecopy[0], linecopy[1]); 
+      val.green = hex_to_rgb(linecopy[2], linecopy[3]); 
+      val.blue  = hex_to_rgb(linecopy[4], linecopy[5]); 
+
+      r_set_last_color(&val, 1);
+
       return value_container;
     }
 
