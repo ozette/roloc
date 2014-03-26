@@ -272,10 +272,10 @@ void export_linear_gradient_image(roloc_rgb *store, int amount, char *token)
     pat = cairo_pattern_create_linear(0.0, 0.0, width, 0.0);
   }
 
-  double coverage = (1.0/(amount+2));
+  double coverage = (1.0/(amount));
 
   int itr;
-  for(itr = 0; itr < amount+2; itr++) {
+  for(itr = 0; itr < amount; itr++) {
     cairo_pattern_add_color_stop_rgba(
       pat,
       coverage*itr,
