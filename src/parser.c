@@ -192,7 +192,7 @@ void *find_request(char *line)
         strcat(hex, rgb_to_hex(c.blue/255));
 
         printf("%s\n", hex);
-        set_last_color(hex);
+        r_set_last_color(&c, 1);
       }
     } else if(strcmp(token, "split") == 0) {
       /* triad color calculation functionality */
@@ -215,6 +215,11 @@ void *find_request(char *line)
         strcat(hex2, rgb_to_hex(c2.blue/255));
 
         printf("%s %s\n", hex, hex2);
+
+        roloc_rgb rgb_array[2];
+        rgb_array[0] = c;
+        rgb_array[1] = c2;
+        r_set_last_color(rgb_array, 2);
       }
     } else if(strcmp(token, "cmy") == 0) {
       token = strtok(NULL, " ");
@@ -230,6 +235,8 @@ void *find_request(char *line)
 
         printf("%.2f%, %.2f%, %.2f%\n", result.c*100, result.m*100,
                                          result.y*100);
+
+        r_set_last_color(&o, 1);
       }
     }
   }
