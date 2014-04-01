@@ -152,7 +152,18 @@ void *find_request(char *line)
       }
     }
   } else if(token) {
+    /* rgb repr. functionality */
+    if(strcmp(token, "rgb") == 0) {
+      token = strtok(NULL, " ");
+      if(token && (color = find_color(token, RLC_PATH, 1))) {
 
+          float red   = hex_to_rgb(color[0], color[1]);
+          float green = hex_to_rgb(color[2], color[3]);
+          float blue  = hex_to_rgb(color[4], color[5]);
+
+        printf("rgb(%.0f, %.0f, %.0f)\n", red*255, green*255, blue*255); 
+      }
+    }
     /* hsv repr. functionality */
     if(strcmp(token, "hsv") == 0) {
       token = strtok(NULL, " ");
