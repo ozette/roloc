@@ -100,3 +100,39 @@ roloc_hsv calculate_complement(char *keycolor)
 
   return complementary_color;
 }
+
+
+/*! \brief Calculate the split-complement of the provided key color.
+ *
+ *  \param keycolor must be a hexidecimal value e.g FF0000.
+ *  \param offset must be an integer value between 0 and 360.
+ *  \param dirn the direction of the triad based on the offset from the
+ *         keycolor. 1 is left and 0 is right. 
+ */
+roloc_hsv calculate_splitcomplement(char *keycolor, int offset, int dirn)
+{
+  float r = hex_to_rgb(keycolor[0], keycolor[1]);
+  float g = hex_to_rgb(keycolor[2], keycolor[3]);
+  float b = hex_to_rgb(keycolor[4], keycolor[5]);
+
+  roloc_hsv key_color = rgb_to_hsv(r, g, b);
+
+  roloc_hsv split_color;
+
+  if(dirn) {
+    split_color = (roloc_hsv) {
+      key_color.hue+offset > 360 ? key_color.hue+offset-360 :
+                                   key_color.hue+offset,
+      key_color.saturation,
+      key_color.value
+    };
+  } else {
+    split_color = (roloc_hsv) {
+      key_color.hue-offset < 0 ? key_color.hue-offset+360 :
+                                 key_color.hue-offset,
+      key_color.saturation,
+      key_color.value
+    };
+  }
+  return split_color;
+}

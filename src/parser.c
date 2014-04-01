@@ -17,6 +17,7 @@
 #include "convert.h"
 
 roloc_hsv calculate_complement(char *keycolor);
+roloc_hsv calculate_splitcomplement(char *keycolor, int offset, int dirn);
 
 /*! Find arithmetic in a provided line and call the appropriate blend function.
  *  Variable names in the line are sought for in color.txt.
@@ -192,6 +193,28 @@ void *find_request(char *line)
 
         printf("%s\n", hex);
         set_last_color(hex);
+      }
+    } else if(strcmp(token, "split") == 0) {
+      /* triad color calculation functionality */
+      token = strtok(NULL, " ");
+      if(token && (color = find_color(token, RLC_PATH, 1))) {
+
+        roloc_rgb c  = hsv_to_rgb(calculate_splitcomplement(color, 120, 0));
+        roloc_rgb c2 = hsv_to_rgb(calculate_splitcomplement(color, 120, 1));
+
+        char hex[7];
+        hex[0] = '\0';
+        strcat(hex, rgb_to_hex(c.red/255));
+        strcat(hex, rgb_to_hex(c.green/255));
+        strcat(hex, rgb_to_hex(c.blue/255));
+
+        char hex2[7];
+        hex2[0] = '\0';
+        strcat(hex2, rgb_to_hex(c2.red/255));
+        strcat(hex2, rgb_to_hex(c2.green/255));
+        strcat(hex2, rgb_to_hex(c2.blue/255));
+
+        printf("%s %s\n", hex, hex2);
       }
     }
   }

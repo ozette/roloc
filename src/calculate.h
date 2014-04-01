@@ -10,3 +10,4 @@
 
 roloc_rgb *calculate_gradient(char *color1, char *color2, int amount);
 roloc_hsv calculate_complement(char *keycolor);
+roloc_hsv calculate_splitcomplement(char *keycolor, int offset, int dirn);
