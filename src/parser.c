@@ -216,6 +216,21 @@ void *find_request(char *line)
 
         printf("%s %s\n", hex, hex2);
       }
+    } else if(strcmp(token, "cmy") == 0) {
+      token = strtok(NULL, " ");
+      if(token && (color = find_color(token, RLC_PATH, 1))) {
+
+        roloc_rgb o;
+
+        o.red   = hex_to_rgb(color[0], color[1]);
+        o.green = hex_to_rgb(color[2], color[3]);
+        o.blue  = hex_to_rgb(color[4], color[5]);
+
+        roloc_cmy result = rgb_to_cmy(o);
+
+        printf("%.2f%, %.2f%, %.2f%\n", result.c*100, result.m*100,
+                                         result.y*100);
+      }
     }
   }
 

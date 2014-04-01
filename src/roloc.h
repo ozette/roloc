@@ -20,4 +20,10 @@ typedef struct roloc_hsv {
   float saturation;
   float value; 
 } roloc_hsv;
+
+typedef struct roloc_cmy {
+  float c;
+  float m;
+  float y;
+} roloc_cmy;
 #endif

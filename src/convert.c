@@ -62,6 +62,23 @@ char *rgb_to_hex(float value)
 }
 
 
+/*! Converts a roloc_rgb value to its cmy equivalent. */
+roloc_cmy rgb_to_cmy(roloc_rgb color)
+{
+
+  float red   = color.red   * 255;
+  float green = color.green * 255;
+  float blue  = color.blue  * 255;
+
+  roloc_cmy cmy_color;
+
+  cmy_color.c = 1 - (red/255);
+  cmy_color.m = 1 - (green/255);
+  cmy_color.y = 1 - (blue/255);
+
+  return cmy_color;
+}
+
 /*! Converts a roloc_hsv representation to its rgb equivalent. */
 roloc_rgb hsv_to_rgb(roloc_hsv object)
 {
