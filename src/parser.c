@@ -77,7 +77,13 @@ char *find_arithmetic(char *line)
 
     printf("%s\n", result);
 
-    set_last_color(result);
+    roloc_rgb val;
+
+    val.red = red;
+    val.green = green;
+    val.blue = blue;
+
+    r_set_last_color(&val, 1);
 
     return result;
   }
