@@ -157,11 +157,13 @@ void *find_request(char *line)
     if(strcmp(token, "hsv") == 0) {
       token = strtok(NULL, " ");
       if(token && (color = find_color(token, RLC_PATH, 1))) {
-        roloc_hsv o = rgb_to_hsv(
-          hex_to_rgb(color[0], color[1]),
-          hex_to_rgb(color[2], color[3]),
-          hex_to_rgb(color[4], color[5])
-        );
+
+        float red   = hex_to_rgb(color[0], color[1]);
+        float green = hex_to_rgb(color[2], color[3]);
+        float blue  = hex_to_rgb(color[4], color[5]);
+
+        roloc_hsv o = rgb_to_hsv(red, green, blue);
+
         printf("hsv(%d, %.2f, %.2f)\n", (int) o.hue, o.saturation, o.value);
      }
    } else if(strcmp(token, "complement") == 0 ||
